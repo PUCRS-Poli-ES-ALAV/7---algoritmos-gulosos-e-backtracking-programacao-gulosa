@@ -1,5 +1,3 @@
-
-
 def nQueens(n):
     return 0
 
@@ -44,3 +42,35 @@ def print_table(table):
 table = posiciona_rainha(8)
 
 print_table(table)
+
+def solve_n_queens(self, n: int) -> List[List[str]]:
+    def backtrack(r):
+        if r == n:
+            ans.append(board[:])
+            return
+            
+        for c in range(n):            
+            if c in placedCol or r + c in placedPos or r - c in placedNeg:
+                continue
+
+            board[r][c] = "Q"
+            placedCol.add(c)
+            placedPos.add(r + c)
+            placedNeg.add(r - c)
+
+            backtrack(r + 1)
+
+            board[r][c] = "."
+            placedCol.remove(c)
+            placedPos.remove(r + c)
+            placedNeg.remove(r - c)
+
+    board = [["."] * n for _ in range(n)]
+    
+    placedCol = set()  # Columns with queens
+    placedPos = set()  # Positive diagonals (r + c)
+    placedNeg = set()  # Negative diagonals (r - c)
+    ans = [] 
+    
+    backtrack(0)
+    return ans
